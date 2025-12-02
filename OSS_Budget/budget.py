@@ -62,7 +62,22 @@ def menu_category_summary():
     if not records:
         print("저장된 내역이 없습니다.")
         return
-    print_category_summary(records)
+     category = input("조회할 카테고리를 입력하세요: ")
+        list_expenses_by_category(records, category)
+        print_category_summary(records)
+def list_expenses_by_category(records, category):
+    found = False
+    print(f"\n[{category} 카테고리 지출 내역]")
+    for r in records:
+        if r['category'] == category:
+            print(f"- {r['date']} / {r['description']} / {r['amount']}원")
+            found = True
+
+    if not found:
+        print("해당 카테고리 지출 내역이 없습니다.\n")
+    else:
+        print()
+
 def main():
     while True:
         print("1. 내역 추가")
@@ -70,6 +85,8 @@ def main():
         print("3. 파일 저장")
         print("4. 종료")
         print("5. 카테고리별 수입/지출 요약 보기")
+        print("6. 특정 카테고리 지출 내역 조회")
+        
         choice = input("메뉴를 선택하세요: ")
 
         if choice == "1":
@@ -82,6 +99,8 @@ def main():
             break
         elif choice == "5":
             menu_category_summary()
+        elif choice == "6":
+            menu_list_by_category()
 
 
 
